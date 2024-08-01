@@ -10,7 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
     "mssql": "^11.0.1",
     "oracledb": "^6.6.0"
   }
