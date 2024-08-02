@@ -1,4 +1,6 @@
-require("dotenv").config();
+require("dotenv").config({
+  path: "C:\\Users\\chira\\OneDrive\\Desktop\\db_groupProject\\.env",
+});
 const sql = require("mssql");
 const oracledb = require("oracledb");
 
@@ -159,15 +161,15 @@ async function refreshAddressTable() {
 
           if (existingAddressMap.has(key)) {
             console.log(`Updating existing address: ${key}`);
-             const existingAddress = existingAddressMap.get(key);
-             await updateOracleAddress(
-               oracleConnection,
-               transformedAddress,
-               existingAddress.ADDRESS_ID
-             );
-             updateCount++;
+            const existingAddress = existingAddressMap.get(key);
+            await updateOracleAddress(
+              oracleConnection,
+              transformedAddress,
+              existingAddress.ADDRESS_ID
+            );
+            updateCount++;
           } else {
-             console.log(`Inserting new address: ${key}`);
+            console.log(`Inserting new address: ${key}`);
             await insertOracleAddress(oracleConnection, transformedAddress);
             insertCount++;
           }
@@ -180,10 +182,10 @@ async function refreshAddressTable() {
       console.log(
         `Batch processed. Total progress: Updated: ${updateCount}, Inserted: ${insertCount}, Errors: ${errorCount}`
       );
-       if (i % (batchSize * 10) === 0) {
-         await oracleConnection.commit();
-         console.log(`Committed batch ${i / batchSize}`);
-       }
+      if (i % (batchSize * 10) === 0) {
+        await oracleConnection.commit();
+        console.log(`Committed batch ${i / batchSize}`);
+      }
     }
 
     await oracleConnection.commit();
